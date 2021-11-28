@@ -36,4 +36,14 @@ public class TriangleTest {
         double rsl = triangle.area();
         Assert.assertEquals(30, rsl, 0.001);
     }
+
+    @Test
+    public void areaMinus1() {
+        Point a = new Point(0, 0);
+        Point b = new Point(0, 1);
+        Point c = new Point(0, 5);
+        Triangle triangle = new Triangle(a, b, c);
+        double rsl = triangle.area();
+        Assert.assertEquals(-1, rsl, 0.001);
+    }
 }
