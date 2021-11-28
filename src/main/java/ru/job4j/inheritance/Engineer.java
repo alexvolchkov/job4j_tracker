@@ -4,10 +4,6 @@ public class Engineer extends Profession {
 
     private boolean officeWork;
 
-    public Engineer(String name, String surname, String education, String birthday) {
-        super(name, surname, education, birthday);
-    }
-
     public Engineer(String name, String surname, String education, String birthday, boolean officeWork) {
         super(name, surname, education, birthday);
         this.officeWork = officeWork;
