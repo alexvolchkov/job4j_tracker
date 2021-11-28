@@ -1,12 +1,12 @@
 package ru.job4j.pojo;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Student {
 
     private String fio;
     private String group;
-    private Date dateAdmission;
+    private GregorianCalendar dateAdmission;
 
     public String getFio() {
         return fio;
@@ -24,11 +24,11 @@ public class Student {
         this.group = group;
     }
 
-    public Date getDateAdmission() {
+    public GregorianCalendar getDateAdmission() {
         return dateAdmission;
     }
 
-    public void setDateAdmission(Date dateAdmission) {
+    public void setDateAdmission(GregorianCalendar dateAdmission) {
         this.dateAdmission = dateAdmission;
     }
 }
