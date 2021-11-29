@@ -16,7 +16,7 @@ public class Library {
         shelf[0] = shelf[3];
         shelf[3] = tmp;
         for (Book book : shelf) {
-            if (book.getName().equals("Clean code")) {
+            if ("Clean code".equals(book.getName())) {
                 System.out.println(book.getName());
             }
         }
