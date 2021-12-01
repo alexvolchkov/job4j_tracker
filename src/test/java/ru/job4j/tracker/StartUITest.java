@@ -8,6 +8,8 @@ import static org.junit.Assert.*;
 
 public class StartUITest {
 
+    private final Output output = new ConsoleOutput();
+
     @Test
     public void whenCreateItem() {
         Input in = new StubInput(
@@ -15,10 +17,10 @@ public class StartUITest {
         );
         Tracker tracker = new Tracker();
         UserAction[] actions = {
-                new CreateAction(),
+                new CreateAction(output),
                 new ExitAction()
         };
-        new StartUI().init(in, tracker, actions);
+        new StartUI(output).init(in, tracker, actions);
         assertThat(tracker.findAll()[0].getName(), is("Item name"));
     }
 
@@ -29,11 +31,11 @@ public class StartUITest {
         );
         Tracker tracker = new Tracker();
         UserAction[] actions = {
-          new CreateAction(),
-          new EditAction(),
+          new CreateAction(output),
+          new EditAction(output),
           new ExitAction()
         };
-        new StartUI().init(input, tracker, actions);
+        new StartUI(output).init(input, tracker, actions);
         assertThat(tracker.findAll()[0].getName(), is("Item two"));
     }
 
@@ -44,11 +46,11 @@ public class StartUITest {
         );
         Tracker tracker = new Tracker();
         UserAction[] actions = {
-                new CreateAction(),
-                new DeleteAction(),
+                new CreateAction(output),
+                new DeleteAction(output),
                 new ExitAction()
         };
-        new StartUI().init(input, tracker, actions);
+        new StartUI(output).init(input, tracker, actions);
         assertThat(tracker.findById(1), is(nullValue()));
     }
 }
