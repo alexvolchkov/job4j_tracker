@@ -29,12 +29,12 @@ public class StartUITest {
 
     @Test
     public void whenEditItem() {
-        Input input = new StubInput(
-                new String[] {"0", "Item one", "1", "1", "Item two", "2"}
-        );
         Tracker tracker = new Tracker();
+        Item itemOne = tracker.add(new Item("Item one"));
+        Input input = new StubInput(
+                new String[] {"0", String.valueOf(itemOne.getId()), "Item two", "1"}
+        );
         UserAction[] actions = {
-          new CreateAction(output),
           new EditAction(output),
           new ExitAction()
         };
@@ -44,12 +44,13 @@ public class StartUITest {
 
     @Test
     public void whenDeleteItem() {
-        Input input = new StubInput(
-                new String[] {"0", "Item one", "1", "1", "2"}
-        );
         Tracker tracker = new Tracker();
+        Item itemOne = tracker.add(new Item("Item one"));
+        Input input = new StubInput(
+                new String[] {"0", String.valueOf(itemOne.getId()), "1"}
+        );
+
         UserAction[] actions = {
-                new CreateAction(output),
                 new DeleteAction(output),
                 new ExitAction()
         };
