@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.time.format.DateTimeFormatter;
 
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.*;
 
 public class StartUITest {
@@ -55,7 +54,7 @@ public class StartUITest {
                 new ExitAction()
         };
         new StartUI(output).init(input, tracker, actions);
-        assertThat(tracker.findById(1), is(nullValue()));
+        assertNull(tracker.findById(itemOne.getId()));
     }
 
     @Test
