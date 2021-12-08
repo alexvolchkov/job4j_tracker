@@ -2,6 +2,11 @@ package ru.job4j.bank;
 
 import java.util.Objects;
 
+/**
+ * Класс описывает банковский счет
+ * @author ALEKSANDR VOLCHKOV
+ * @version 1.0
+ */
 public class Account {
     private String requisite;
     private double balance;
@@ -27,6 +32,10 @@ public class Account {
         this.balance = balance;
     }
 
+    /**
+     * Сравнение банковских счетов на равенство происходит по реквизитам
+     * @param o банковский счет, который сравнивают на равенство
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {

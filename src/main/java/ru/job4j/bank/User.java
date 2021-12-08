@@ -2,7 +2,15 @@ package ru.job4j.bank;
 
 import java.util.Objects;
 
+/**
+ * Класс описывает пользователя банковской системы
+ * @author ALEKSANDR VOLCHKOV
+ * @version 1.0
+ */
 public class User {
+    /**
+     * Поля класса номер паспорта и ФИО пользователя
+     */
     private String passport;
     private String username;
 
@@ -27,6 +35,10 @@ public class User {
         this.username = username;
     }
 
+    /**
+     * Сравнение пользователей на равенство происходит по номеру паспорта
+     * @param o пользователь, который сравнивают на равенство
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
