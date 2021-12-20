@@ -7,7 +7,7 @@ public class LambdaUsage {
     public static void main(String[] args) {
         Comparator<String> comparator = (left, right) -> {
             System.out.println("compare - " + left.length() + " : " + right.length());
-            return right.length() - left.length();
+            return Integer.compare(right.length(), left.length());
         };
         String[] names = {
                 "Ivan",
@@ -15,7 +15,7 @@ public class LambdaUsage {
         };
         Comparator<String> lengthCmp = (left, right) -> {
             System.out.println("execute comparator");
-            return left.length() - right.length();
+            return Integer.compare(left.length(), right.length());
         };
         Arrays.sort(names, lengthCmp);
     }
