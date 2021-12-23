@@ -64,7 +64,6 @@ public class AnalyzeTest {
                         )
                 ).stream()
         );
-        //Collections.sort(average, (left, right) -> left.getName().compareTo(right.getName()));
         assertThat(average, is(List.of(
                 new Tuple("Math", 80D),
                 new Tuple("Lang", 80D),
