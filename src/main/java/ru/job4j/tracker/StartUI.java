@@ -11,7 +11,7 @@ public class StartUI {
         this.out = out;
     }
 
-    public void init(Input input, Tracker tracker, List<UserAction> actions) {
+    public void init(Input input, Store tracker, List<UserAction> actions) {
        boolean run = true;
         while (run) {
             this.showMenu(actions);
@@ -34,7 +34,7 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
-        Tracker tracker = new Tracker();
+        MemTracker memTracker = new MemTracker();
         Output output = new ConsoleOutput();
         Input input = new ValidateInput(output, new ConsoleInput());
        List<UserAction> actions = new ArrayList<>();
@@ -45,6 +45,6 @@ public class StartUI {
         actions.add(new FindByIdAction(output));
         actions.add(new FindByNameAction(output));
         actions.add(new ExitAction());
-        new StartUI(output).init(input, tracker, actions);
+        new StartUI(output).init(input, memTracker, actions);
     }
 }
