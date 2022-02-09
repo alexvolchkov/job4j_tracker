@@ -1,18 +1,14 @@
 package ru.job4j.tracker;
 
-import org.junit.Test;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.*;
 
 import java.io.InputStream;
 import java.sql.*;
+import java.util.List;
 import java.util.Properties;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class SqlTrackerTest {
 
@@ -62,7 +58,7 @@ public class SqlTrackerTest {
         tracker.add(item);
         Item replaceItem = new Item("replace");
         tracker.replace(item.getId(), replaceItem);
-        assertThat(tracker.findById(item.getId()), is(replaceItem));
+        assertThat(tracker.findById(item.getId()).getName(), is("replace"));
     }
 
     @Test
@@ -72,6 +68,32 @@ public class SqlTrackerTest {
         tracker.add(item);
         tracker.delete(item.getId());
         assertNull(tracker.findById(item.getId()));
+    }
+
+    @Test
+    public void whenFindAllItems() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item1 = new Item("item1");
+        Item item2 = new Item("item2");
+        Item item3 = new Item("item3");
+        tracker.add(item1);
+        tracker.add(item2);
+        tracker.add(item3);
+        assertThat(tracker.findAll(), is(List.of(item1, item2, item3)));
+    }
+
+    @Test
+    public void whenFindByNameItem() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item1 = new Item("item1");
+        Item item2 = new Item("item2");
+        Item item3 = new Item("item3");
+        Item item4 = new Item("item2");
+        tracker.add(item1);
+        tracker.add(item2);
+        tracker.add(item3);
+        tracker.add(item4);
+        assertThat(tracker.findByName("item2"), is(List.of(item2, item4)));
     }
 
 }
