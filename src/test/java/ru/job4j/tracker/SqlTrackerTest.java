@@ -5,16 +5,12 @@ import org.junit.Test;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Test;
-//import ru.job4j.tracker.model.Item;
 
 import java.io.InputStream;
 import java.sql.*;
-import java.util.List;
 import java.util.Properties;
 
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
