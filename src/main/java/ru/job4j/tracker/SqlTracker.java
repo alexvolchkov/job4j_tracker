@@ -134,11 +134,7 @@ public class SqlTracker implements Store, AutoCloseable {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    rsl = new Item(
-                            resultSet.getInt("id"),
-                            resultSet.getString("name"),
-                            resultSet.getTimestamp("created").toLocalDateTime()
-                    );
+                    rsl = createItem(resultSet);
                 }
             }
         } catch (Exception e) {
@@ -147,23 +143,11 @@ public class SqlTracker implements Store, AutoCloseable {
         return rsl;
     }
 
-    public static void main(String[] args) {
-        Output output = new ConsoleOutput();
-        Input input = new ValidateInput(output, new ConsoleInput());
-        try (SqlTracker tracker = new SqlTracker()) {
-            tracker.init();
-            List<UserAction> actions = List.of(
-                    new CreateAction(output),
-                    new EditAction(output),
-                    new DeleteAction(output),
-                    new ShowAllAction(output),
-                    new FindByIdAction(output),
-                    new FindByNameAction(output),
-                    new ExitAction()
-            );
-            new StartUI(output).init(input, tracker, actions);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private Item createItem(ResultSet resultSet) throws SQLException {
+       return new Item(
+                resultSet.getInt("id"),
+                resultSet.getString("name"),
+                resultSet.getTimestamp("created").toLocalDateTime()
+        );
     }
 }
