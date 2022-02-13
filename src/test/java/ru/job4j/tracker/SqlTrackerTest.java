@@ -46,26 +46,22 @@ public class SqlTrackerTest {
     @Test
     public void whenSaveItemAndFindByGeneratedIdThenMustBeTheSame() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item");
-        tracker.add(item);
+        Item item = tracker.add(new Item("item"));
         assertThat(tracker.findById(item.getId()), is(item));
     }
 
     @Test
     public void whenReplaceItemAndFindByIdThenMustBeTheSame() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item");
-        tracker.add(item);
-        Item replaceItem = new Item("replace");
-        tracker.replace(item.getId(), replaceItem);
+        Item item = tracker.add(new Item("item"));
+        tracker.replace(item.getId(), new Item("replace"));
         assertThat(tracker.findById(item.getId()).getName(), is("replace"));
     }
 
     @Test
     public void whenDeleteItem() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item");
-        tracker.add(item);
+        Item item = tracker.add(new Item("item"));
         tracker.delete(item.getId());
         assertNull(tracker.findById(item.getId()));
     }
@@ -73,26 +69,19 @@ public class SqlTrackerTest {
     @Test
     public void whenFindAllItems() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item1 = new Item("item1");
-        Item item2 = new Item("item2");
-        Item item3 = new Item("item3");
-        tracker.add(item1);
-        tracker.add(item2);
-        tracker.add(item3);
+        Item item1 = tracker.add(new Item("item1"));
+        Item item2 = tracker.add(new Item("item2"));
+        Item item3 = tracker.add(new Item("item3"));
         assertThat(tracker.findAll(), is(List.of(item1, item2, item3)));
     }
 
     @Test
     public void whenFindByNameItem() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item1 = new Item("item1");
-        Item item2 = new Item("item2");
-        Item item3 = new Item("item3");
-        Item item4 = new Item("item2");
-        tracker.add(item1);
-        tracker.add(item2);
-        tracker.add(item3);
-        tracker.add(item4);
+        Item item1 = tracker.add(new Item("item1"));
+        Item item2 = tracker.add(new Item("item2"));
+        Item item3 = tracker.add(new Item("item3"));
+        Item item4 = tracker.add(new Item("item2"));
         assertThat(tracker.findByName("item2"), is(List.of(item2, item4)));
     }
 
