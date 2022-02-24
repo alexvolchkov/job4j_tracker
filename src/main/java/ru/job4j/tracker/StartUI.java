@@ -44,6 +44,8 @@ public class StartUI {
         actions.add(new DeleteAction(output));
         actions.add(new FindByIdAction(output));
         actions.add(new FindByNameAction(output));
+        actions.add(new CreateAnyAction(output));
+        actions.add(new DeleteAllAction(output));
         actions.add(new ExitAction());
         new StartUI(output).init(input, memTracker, actions);
     }
