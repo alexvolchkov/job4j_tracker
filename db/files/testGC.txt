@@ -1,0 +1,63 @@
+Вывод:
+Во всех экспериментах запускал цикл на создание 10000 объектов и их удаление
+SerialGC  Пауза 8.273 мс
+ParallelGC Пауза 5.841 мс
+G1GC в начале сработал с паузой 4.304 мс, затем 3 цикла без сборки мусора и на 4 цикл с паузой 1.014 мс
+Исходя из опытов лучший GC это G1, но так же он потребляет больше места под heap.
+
+SerialGC
+[32.405s][info][gc,start    ] GC(1) Pause Young (Allocation Failure)
+[32.412s][info][gc,heap     ] GC(1) DefNew: 17216K(17216K)->1311K(17216K) Eden: 15360K(15360K)->0K(15360K) From: 1856K(1856K)->1311K(1856K)
+[32.412s][info][gc,heap     ] GC(1) Tenured: 1263K(38272K)->2523K(38272K)
+[32.412s][info][gc,metaspace] GC(1) Metaspace: 1477K(1600K)->1477K(1600K) NonClass: 1356K(1408K)->1356K(1408K) Class: 121K(192K)->121K(192K)
+[32.413s][info][gc          ] GC(1) Pause Young (Allocation Failure) 18M->3M(54M) 8.273ms
+[32.413s][info][gc,cpu      ] GC(1) User=0.02s Sys=0.00s Real=0.01s
+
+Пауза 8.273 мс
+
+ParallelGC
+[22.068s][info][gc,start    ] GC(2) Pause Young (Allocation Failure)
+[22.074s][info][gc,heap     ] GC(2) PSYoungGen: 16892K(16896K)->2044K(16896K) Eden: 14848K(14848K)->0K(14848K) From: 2044K(2048K)->2044K(2048K)
+[22.074s][info][gc,heap     ] GC(2) ParOldGen: 1706K(38400K)->2458K(38400K)
+[22.074s][info][gc,metaspace] GC(2) Metaspace: 1464K(1600K)->1464K(1600K) NonClass: 1346K(1408K)->1346K(1408K) Class: 118K(192K)->118K(192K)
+[22.074s][info][gc          ] GC(2) Pause Young (Allocation Failure) 18M->4M(54M) 5.841ms
+[22.074s][info][gc,cpu      ] GC(2) User=0.00s Sys=0.00s Real=0.01s
+Пауза 5.841 мс
+
+UseG1GC
+[34.433s][info][gc,start    ] GC(1) Pause Young (Normal) (G1 Evacuation Pause)
+[34.433s][info][gc,task     ] GC(1) Using 2 workers of 4 for evacuation
+[34.437s][info][gc,phases   ] GC(1)   Pre Evacuate Collection Set: 0.0ms
+[34.437s][info][gc,phases   ] GC(1)   Merge Heap Roots: 0.0ms
+[34.437s][info][gc,phases   ] GC(1)   Evacuate Collection Set: 3.8ms
+[34.437s][info][gc,phases   ] GC(1)   Post Evacuate Collection Set: 0.2ms
+[34.437s][info][gc,phases   ] GC(1)   Other: 0.1ms
+[34.437s][info][gc,heap     ] GC(1) Eden regions: 14->0(31)
+[34.437s][info][gc,heap     ] GC(1) Survivor regions: 2->2(2)
+[34.437s][info][gc,heap     ] GC(1) Old regions: 1->2
+[34.437s][info][gc,heap     ] GC(1) Archive regions: 0->0
+[34.437s][info][gc,heap     ] GC(1) Humongous regions: 0->0
+[34.437s][info][gc,metaspace] GC(1) Metaspace: 1449K(1600K)->1449K(1600K) NonClass: 1330K(1408K)->1330K(1408K) Class: 118K(192K)->118K(192K)
+[34.437s][info][gc          ] GC(1) Pause Young (Normal) (G1 Evacuation Pause) 16M->3M(56M) 4.304ms
+[34.437s][info][gc,cpu      ] GC(1) User=0.00s Sys=0.00s Real=0.00s
+
+Сработал GC через 3 цикла по 10000
+[130.920s][info][gc,start    ] GC(2) Pause Young (Normal) (G1 Evacuation Pause)
+[130.920s][info][gc,task     ] GC(2) Using 2 workers of 4 for evacuation
+[130.921s][info][gc,phases   ] GC(2)   Pre Evacuate Collection Set: 0.0ms
+[130.921s][info][gc,phases   ] GC(2)   Merge Heap Roots: 0.0ms
+[130.921s][info][gc,phases   ] GC(2)   Evacuate Collection Set: 0.4ms
+[130.921s][info][gc,phases   ] GC(2)   Post Evacuate Collection Set: 0.2ms
+[130.921s][info][gc,phases   ] GC(2)   Other: 0.2ms
+[130.921s][info][gc,heap     ] GC(2) Eden regions: 31->0(32)
+[130.921s][info][gc,heap     ] GC(2) Survivor regions: 2->1(5)
+[130.921s][info][gc,heap     ] GC(2) Old regions: 2->2
+[130.921s][info][gc,heap     ] GC(2) Archive regions: 0->0
+[130.921s][info][gc,heap     ] GC(2) Humongous regions: 0->0
+[130.921s][info][gc,metaspace] GC(2) Metaspace: 1478K(1600K)->1478K(1600K) NonClass: 1357K(1408K)->1357K(1408K) Class: 121K(192K)->121K(192K)
+[130.921s][info][gc          ] GC(2) Pause Young (Normal) (G1 Evacuation Pause) 34M->2M(56M) 1.014ms
+[130.921s][info][gc,cpu      ] GC(2) User=0.00s Sys=0.00s Real=0.00s
+
+
+
+
