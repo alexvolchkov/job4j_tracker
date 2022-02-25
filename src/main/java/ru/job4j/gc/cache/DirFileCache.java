@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class DirFileCache extends AbstractCache<String, String> {
 
@@ -15,20 +17,12 @@ public class DirFileCache extends AbstractCache<String, String> {
 
     @Override
     protected String load(String key) {
-        StringBuilder stringBuilder = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(
-                new FileReader(String.format("%s/%s", cachingDir, key)))) {
-          String ls = System.lineSeparator();
-          String line = null;
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line);
-                stringBuilder.append(ls);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        String text = null;
+        try {
+          text = Files.readString(Path.of(cachingDir, key));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return stringBuilder.toString();
+        return text;
     }
 }
