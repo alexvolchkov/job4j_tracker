@@ -28,4 +28,10 @@ public class ShowAllAction implements UserAction {
         }
         return true;
     }
+
+    public boolean executeByReact(Input input, Store tracker) {
+        out.println("=== Show all items ===");
+        tracker.findAll(out::println);
+        return true;
+    }
 }
