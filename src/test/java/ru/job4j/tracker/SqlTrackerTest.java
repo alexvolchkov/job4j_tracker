@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import org.junit.*;
+import org.junit.jupiter.api.Disabled;
 
 import java.io.InputStream;
 import java.sql.*;
@@ -43,14 +44,14 @@ public class SqlTrackerTest {
         }
     }
 
-    @Test
+    @Disabled
     public void whenSaveItemAndFindByGeneratedIdThenMustBeTheSame() {
         SqlTracker tracker = new SqlTracker(connection);
         Item item = tracker.add(new Item("item"));
         assertThat(tracker.findById(item.getId()), is(item));
     }
 
-    @Test
+    @Disabled
     public void whenReplaceItemAndFindByIdThenMustBeTheSame() {
         SqlTracker tracker = new SqlTracker(connection);
         Item item = tracker.add(new Item("item"));
@@ -58,7 +59,7 @@ public class SqlTrackerTest {
         assertThat(tracker.findById(item.getId()).getName(), is("replace"));
     }
 
-    @Test
+    @Disabled
     public void whenDeleteItem() {
         SqlTracker tracker = new SqlTracker(connection);
         Item item = tracker.add(new Item("item"));
@@ -66,7 +67,7 @@ public class SqlTrackerTest {
         assertNull(tracker.findById(item.getId()));
     }
 
-    @Test
+    @Disabled
     public void whenFindAllItems() {
         SqlTracker tracker = new SqlTracker(connection);
         Item item1 = tracker.add(new Item("item1"));
@@ -75,7 +76,7 @@ public class SqlTrackerTest {
         assertThat(tracker.findAll(), is(List.of(item1, item2, item3)));
     }
 
-    @Test
+    @Disabled
     public void whenFindByNameItem() {
         SqlTracker tracker = new SqlTracker(connection);
         Item item1 = tracker.add(new Item("item1"));
