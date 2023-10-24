@@ -1,7 +1,9 @@
 package ru.job4j.tracker;
 
-import org.junit.*;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.sql.*;
@@ -15,9 +17,9 @@ public class SqlTrackerTest {
 
     static Connection connection;
 
-    @BeforeClass
+    @BeforeAll
     public static void initConnection() {
-        try (InputStream in = SqlTrackerTest.class.getClassLoader().getResourceAsStream("test.properties")) {
+        try (InputStream in = SqlTrackerTest.class.getClassLoader().getResourceAsStream("db/liquibase_test.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
@@ -32,26 +34,26 @@ public class SqlTrackerTest {
         }
     }
 
-    @AfterClass
+    @AfterAll
     public static void closeConnection() throws SQLException {
         connection.close();
     }
 
-    @After
+    @AfterEach
     public void wipeTable() throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement("delete from items")) {
             statement.execute();
         }
     }
 
-    @Disabled
+    @Test
     public void whenSaveItemAndFindByGeneratedIdThenMustBeTheSame() {
         SqlTracker tracker = new SqlTracker(connection);
         Item item = tracker.add(new Item("item"));
         assertThat(tracker.findById(item.getId()), is(item));
     }
 
-    @Disabled
+    @Test
     public void whenReplaceItemAndFindByIdThenMustBeTheSame() {
         SqlTracker tracker = new SqlTracker(connection);
         Item item = tracker.add(new Item("item"));
@@ -59,7 +61,7 @@ public class SqlTrackerTest {
         assertThat(tracker.findById(item.getId()).getName(), is("replace"));
     }
 
-    @Disabled
+    @Test
     public void whenDeleteItem() {
         SqlTracker tracker = new SqlTracker(connection);
         Item item = tracker.add(new Item("item"));
@@ -67,7 +69,7 @@ public class SqlTrackerTest {
         assertNull(tracker.findById(item.getId()));
     }
 
-    @Disabled
+    @Test
     public void whenFindAllItems() {
         SqlTracker tracker = new SqlTracker(connection);
         Item item1 = tracker.add(new Item("item1"));
@@ -76,7 +78,7 @@ public class SqlTrackerTest {
         assertThat(tracker.findAll(), is(List.of(item1, item2, item3)));
     }
 
-    @Disabled
+    @Test
     public void whenFindByNameItem() {
         SqlTracker tracker = new SqlTracker(connection);
         Item item1 = tracker.add(new Item("item1"));
