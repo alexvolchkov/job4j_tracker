@@ -10,8 +10,7 @@ import java.sql.*;
 import java.util.List;
 import java.util.Properties;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.*;
 
 public class SqlTrackerTest {
 
@@ -50,7 +49,7 @@ public class SqlTrackerTest {
     public void whenSaveItemAndFindByGeneratedIdThenMustBeTheSame() {
         SqlTracker tracker = new SqlTracker(connection);
         Item item = tracker.add(new Item("item"));
-        assertThat(tracker.findById(item.getId()), is(item));
+        assertThat(tracker.findById(item.getId())).isEqualTo(item);
     }
 
     @Test
@@ -58,7 +57,7 @@ public class SqlTrackerTest {
         SqlTracker tracker = new SqlTracker(connection);
         Item item = tracker.add(new Item("item"));
         tracker.replace(item.getId(), new Item("replace"));
-        assertThat(tracker.findById(item.getId()).getName(), is("replace"));
+        assertThat(tracker.findById(item.getId()).getName()).isEqualTo("replace");
     }
 
     @Test
@@ -66,7 +65,7 @@ public class SqlTrackerTest {
         SqlTracker tracker = new SqlTracker(connection);
         Item item = tracker.add(new Item("item"));
         tracker.delete(item.getId());
-        assertNull(tracker.findById(item.getId()));
+        assertThat(tracker.findById(item.getId())).isNull();
     }
 
     @Test
@@ -75,7 +74,7 @@ public class SqlTrackerTest {
         Item item1 = tracker.add(new Item("item1"));
         Item item2 = tracker.add(new Item("item2"));
         Item item3 = tracker.add(new Item("item3"));
-        assertThat(tracker.findAll(), is(List.of(item1, item2, item3)));
+        assertThat(tracker.findAll()).isEqualTo(List.of(item1, item2, item3));
     }
 
     @Test
@@ -85,7 +84,7 @@ public class SqlTrackerTest {
         Item item2 = tracker.add(new Item("item2"));
         Item item3 = tracker.add(new Item("item3"));
         Item item4 = tracker.add(new Item("item2"));
-        assertThat(tracker.findByName("item2"), is(List.of(item2, item4)));
+        assertThat(tracker.findByName("item2")).isEqualTo(List.of(item2, item4));
     }
 
 }
